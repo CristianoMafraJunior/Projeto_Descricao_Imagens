@@ -1,4 +1,4 @@
-class Camera {
+class WebcamCamera {
     constructor(videoElement) {
         this.video = videoElement;
     }
@@ -12,7 +12,7 @@ class Camera {
                 };
             })
             .catch((err) => {
-                console.log('Erro ao acessar a webcam ou câmera: ', err);
+                alert('Erro ao acessar a webcam ou câmera: ', err);
             });
     }
 
@@ -40,7 +40,7 @@ class Camera {
     }
 }
 
-class ImageLoader {
+class WebcamImageLoader {
     constructor(inputElement, previewElement) {
         this.input = inputElement;
         this.preview = previewElement;
@@ -61,24 +61,31 @@ document.addEventListener('DOMContentLoaded', function() {
     const loadImageBtn = document.getElementById('loadImageBtn');
     const takePhotoBtn = document.getElementById('takePhotoBtn');
     const startWebcamBtn = document.getElementById('startWebcamBtn');
+    const describeImageBtn = document.getElementById('describeImageBtn'); // Novo botão
     const fileInput = document.getElementById('fileInput');
     const imagePreview = document.getElementById('imagePreview');
+    const imageDescription = document.getElementById('imageDescription');
 
-    const camera = new Camera(video);
-    const imageLoader = new ImageLoader(fileInput, imagePreview);
+    const webcamCamera = new WebcamCamera(video);
+    const webcamImageLoader = new WebcamImageLoader(fileInput, imagePreview);
 
     startWebcamBtn.addEventListener('click', function() {
-        camera.start();
+        webcamCamera.start();
     });
 
     takePhotoBtn.addEventListener('click', function() {
-        const imageDataURL = camera.takePhoto();
-        imageLoader.showImagePreview(imageDataURL);
-        camera.stop();
+        const imageDataURL = webcamCamera.takePhoto();
+        webcamImageLoader.showImagePreview(imageDataURL);
+        webcamCamera.stop();
     });
 
     loadImageBtn.addEventListener('click', function() {
-        imageLoader.loadImage();
+        webcamImageLoader.loadImage();
+    });
+
+    describeImageBtn.addEventListener('click', function() { // Nova funcionalidade para descrever a imagem
+        const imageDataURL = webcamCamera.takePhoto();
+        describeImage(imageDataURL);
     });
 
     fileInput.addEventListener('change', function(e) {
@@ -86,11 +93,25 @@ document.addEventListener('DOMContentLoaded', function() {
         const reader = new FileReader();
 
         reader.onload = function() {
-            imageLoader.showImagePreview(reader.result);
+            webcamImageLoader.showImagePreview(reader.result);
         };
 
         reader.readAsDataURL(file);
     });
 
-    camera.start();
+    webcamCamera.start(); // Inicie a webcam assim que a página for carregada
 });
+
+// Função para descrever a imagem
+async function describeImage(imageDataURL) {
+    // Adicione aqui a lógica para descrever a imagem usando o TensorFlow.js ou outra biblioteca de reconhecimento de imagens
+    // Por enquanto, esta função apenas exibe uma mensagem de exemplo
+    const description = "Este é o rosto de uma pessoa branca e calva sorrindo, com o fundo verde."; // Descrição de exemplo
+    displayDescription(description);
+}
+
+// Função para exibir a descrição na interface do usuário
+function displayDescription(description) {
+    const imageDescription = document.getElementById('imageDescription');
+    imageDescription.textContent = description;
+}
