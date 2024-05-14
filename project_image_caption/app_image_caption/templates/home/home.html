@@ -16,10 +16,16 @@
             <button id="loadImageBtn" class="btn btn-primary me-2">Carregar Imagem</button>
             <button id="takePhotoBtn" class="btn btn-primary me-2">Tirar Foto</button>
             <button id="startWebcamBtn" class="btn btn-primary">Ligar Webcam</button>
+            <button id="describeImageBtn" class="btn btn-primary ms-2">Descrever Imagem</button> <!-- Novo botão -->
         </div>
         <input type="file" id="fileInput" style="display: none;">
         <img id="imagePreview" src="#" alt="Imagem Carregada" style="display: none;">
+        <p id="imageDescription" class="mt-3"></p>
     </div>
     <script src="{% static 'js/script.js' %}"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@tensorflow-models/sentence-encoder"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@tensorflow-models/show-and-tell"></script>
+
 </body>
 </html>
