@@ -1,3 +1,18 @@
 body {
-    height: 100vh;
+    padding-top: 50px;
+}
+.container {
+    max-width: 600px;
+}
+.img-preview {
+    width: 100%;
+    max-height: 400px;
+    object-fit: cover;
+    margin-top: 20px;
+}
+.img-result {
+    width: 100%;
+    max-height: 600px;
+    object-fit: contain;
+    margin-top: 20px;
 }
