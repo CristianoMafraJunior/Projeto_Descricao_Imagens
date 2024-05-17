@@ -1,6 +1,3 @@
-body {
-    padding-top: 50px;
-}
 .container {
     max-width: 600px;
 }
@@ -15,4 +12,27 @@ body {
     max-height: 600px;
     object-fit: contain;
     margin-top: 20px;
+}
+
+.navbar{
+    display: flex;
+    align-items: center;
+    background-color: #4477FA;
+    height: 80px;
+    width: 100%;
+    padding-left: 25px;
+    color: white;
+}
+h1{
+    font-family: sans-serif;
+}
+
+.footer {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 80px;
+    color: white;
+    background-color: #4477FA;
 }

@@ -1,8 +1,9 @@
 import os
 
+import matplotlib.pyplot as plt
 from django.conf import settings
 from django.shortcuts import render
-from gluoncv import data, model_zoo
+from gluoncv import data, model_zoo, utils
 
 from .forms import UploadImageForm
 
@@ -11,6 +12,9 @@ class ImageUploader:
     def __init__(self, image):
         self.image = image
         self.image_path = os.path.join(settings.MEDIA_ROOT, image.name)
+        self.output_image_path = os.path.join(
+            settings.MEDIA_ROOT, "output_" + image.name
+        )
         self.net = model_zoo.get_model("ssd_512_resnet50_v1_voc", pretrained=True)
         self.form = UploadImageForm()
 
@@ -25,7 +29,7 @@ class ImageUploader:
         detected_classes = [
             self.net.classes[int(cls_id.asscalar())] for cls_id in class_IDs[0]
         ]
-        return detected_classes
+        return detected_classes, img, class_IDs, scores, bounding_boxs
 
     # TODO - Remover esse metodo na proxima correção
     def _remove_classes(self, classes):
@@ -41,6 +45,8 @@ class ImageUploader:
             "sheep",
             "chair",
             "boat",
+            "sofa",
+            "horse",
         }
         return [cls for cls in classes if cls not in dict_remove]
 
@@ -54,12 +60,20 @@ class ImageUploader:
         }
         return [translate_class_pt_br.get(cls, cls) for cls in classes]
 
+    def _save_detected_image(self, img, class_IDs, scores, bounding_boxs):
+        utils.viz.plot_bbox(
+            img, bounding_boxs[0], scores[0], class_IDs[0], class_names=self.net.classes
+        )
+        plt.savefig(self.output_image_path)
+        plt.close()
+
     def process_image(self):
         self._save_image()
-        detected_classes = self._detect_classes()
+        detected_classes, img, class_IDs, scores, bounding_boxs = self._detect_classes()
         detected_classes = self._remove_classes(detected_classes)
         detected_classes = list(set(detected_classes))
         detected_classes_pt = self._translate_classes(detected_classes)
+        self._save_detected_image(img, class_IDs, scores, bounding_boxs)
         return detected_classes_pt
 
 
