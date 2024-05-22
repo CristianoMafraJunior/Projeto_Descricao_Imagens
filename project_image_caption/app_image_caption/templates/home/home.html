@@ -5,9 +5,20 @@
 
 
     <main class="main-conten-container">
-        <div class="main-content main-content-list container">
+        <div class="image-caption-container">
+            {% comment %} <img src="https://fakeimg.pl/1280x720/ff0000/909090" alt="Temporario"> {% endcomment %}
+            <h1>TENHA DESCRIÇÕES DE SUAS IMAGENS DE FORMA FÁCIL!</h1>
+            <button type="submit" class="btn btn-primary"><i class="fas fa-image"></i> Upload</button>
+            <button id="TirarFoto" class="btn btn-primary me-2"><i class="fas fa-camera"></i> Tirar Foto</button>
+            <button id="LigarWebcam" class="btn btn-primary"><i class="fas fa-camera-retro"></i> Ligar Webcam</button>
+            <h1>Descrição da Imagem:
+
+                Este é o rosto de uma pessoa branca 
+                e calva sorrindo, a imagem está em preto e branco.</h1>
         </div>
+
     </main>
     {% include "partials/footer.html"%}
 </body>
+
 </html>
