@@ -7,7 +7,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Upload Image</title>
     <link rel="stylesheet" href="{% static 'css/style.css' %}">
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/fontawesome.min.css"
         integrity="sha512-P9vJUXK+LyvAzj8otTOKzdfF1F3UYVl13+F8Fof8/2QNb8Twd6Vb+VD52I7+87tex9UXxnzPgWA3rH96RExA7A=="
         crossorigin="anonymous" referrerpolicy="no-referrer" />
@@ -17,7 +16,6 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/solid.min.css"
         integrity="sha512-tk4nGrLxft4l30r9ETuejLU0a3d7LwMzj0eXjzc16JQj+5U1IeVoCuGLObRDc3+eQMUcEQY1RIDPGvuA7SNQ2w=="
         crossorigin="anonymous" referrerpolicy="no-referrer" />
-
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@100..900&display=swap" rel="stylesheet">
@@ -28,26 +26,17 @@
         <h1><i class="fas fa-eye"></i> Descritor de imagens</h1>
     </div>
     <div class="container text-center">
-        <h1 class="mb-4">TENHA DESCRIÇÕES DE SUAS IMAGENS DE FORMA FÁCIL!</h1>
-        <form method="post" enctype="multipart/form-data" class="mt-4">
+        <h1 class="main-heading">TENHA DESCRIÇÕES DE SUAS IMAGENS DE FORMA FÁCIL!</h1>
+        <form method="post" enctype="multipart/form-data" class="form-container">
             {% csrf_token %}
             {{ form.as_p }}
-            <button type="submit" class="btn btn-primary"><i class="fas fa-image"></i> Upload</button>
-            <button id="TirarFoto" class="btn btn-primary me-2"><i class="fas fa-camera"></i> Tirar Foto</button>
-            <button id="LigarWebcam" class="btn btn-primary"><i class="fas fa-camera-retro"></i> Ligar Webcam</button>
+            <button type="submit" class="btn"><i class="fas fa-image"></i> Upload</button>
         </form>
-
-        {% if uploaded_image_url %}
-        <div class="mt-5">
-            <h4>Carregar Imagem:</h4>
-            <img src="{{ uploaded_image_url }}" alt="Uploaded Image" class="img-preview">
-        </div>
-        {% endif %}
         {% if output_image_url %}
-        <div class="mt-5">
+        <div class="image-container">
             <h4>Detectar Objetos:</h4>
             <img src="{{ output_image_url }}" alt="Detected Objects" class="img-result">
-            <div class="mt-3">
+            <div class="detected-objects">
                 <h5>Objetos Detectados:</h5>
                 <p>{{ detected_classes|join:", " }}</p>
             </div>

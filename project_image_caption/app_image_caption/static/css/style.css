@@ -1,12 +1,48 @@
+html, body {
+    height: 100%;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+}
+
 .container {
     max-width: 600px;
+    margin: 0 auto;
+    padding: 20px;
+    flex: 1;
 }
+
+.main-heading {
+    margin-bottom: 20px;
+    font-size: 2em;
+    font-weight: bold;
+}
+
+.form-container {
+    margin-top: 20px;
+}
+
+.btn {
+    background-color: #4477FA;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    margin: 5px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.btn:hover {
+    background-color: #356ac8;
+}
+
 .img-preview {
     width: 100%;
     max-height: 400px;
     object-fit: cover;
     margin-top: 20px;
 }
+
 .img-result {
     width: 100%;
     max-height: 600px;
@@ -14,7 +50,7 @@
     margin-top: 20px;
 }
 
-.navbar{
+.navbar {
     display: flex;
     align-items: center;
     background-color: #4477FA;
@@ -23,16 +59,25 @@
     padding-left: 25px;
     color: white;
 }
-h1{
-    font-family: sans-serif;
-}
 
 .footer {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 100%;
-    height: 80px;
-    color: white;
     background-color: #4477FA;
+    color: white;
+    padding: 5px;
+    text-align: center;
+    width: 100%;
+    margin-top: auto;
+}
+
+.image-container {
+    margin-top: 20px;
+}
+
+.detected-objects {
+    margin-top: 5px;
+}
+
+
+body {
+    font-family: 'Roboto Slab', serif;
 }
