@@ -49,24 +49,6 @@ class ImageUploader:
             print(f"Error detecting classes: {e}")
             return [], None, None, None, None
 
-    def _remove_classes(self, classes):
-        dict_remove = {
-            "tvmonitor",
-            "dog",
-            "bird",
-            "bottle",
-            "diningtable",
-            "motorbike",
-            "pottedplant",
-            "car",
-            "sheep",
-            "chair",
-            "boat",
-            "sofa",
-            "horse",
-        }
-        return [cls for cls in classes if cls not in dict_remove]
-
     def _translate_classes(self, classes):
         translator = Translator()
         translated_classes = []
@@ -86,6 +68,14 @@ class ImageUploader:
                 )  # Fallback to original class if translation fails
         return translated_classes
 
+    def _generate_description(self, detected_classes):
+        description = "Nesta imagem, foram detectados os seguintes objetos: "
+        if detected_classes:
+            description += ", ".join(detected_classes) + "."
+        else:
+            description += "Nenhum objeto detectado."
+        return description
+
     def _save_detected_image(self, img, class_IDs, scores, bounding_boxs):
         try:
             utils.viz.plot_bbox(
@@ -103,13 +93,12 @@ class ImageUploader:
         self._save_image()
         detected_classes, img, class_IDs, scores, bounding_boxs = self._detect_classes()
         if img is None:
-            return []  # Handle error or provide a default response
+            return [], ""  # Handle error or provide a default response
 
-        detected_classes = self._remove_classes(detected_classes)
-        detected_classes = list(set(detected_classes))
         detected_classes_pt = self._translate_classes(detected_classes)
+        description = self._generate_description(detected_classes_pt)
         self._save_detected_image(img, class_IDs, scores, bounding_boxs)
-        return detected_classes_pt
+        return detected_classes_pt, description
 
 
 def upload_image(request):
@@ -118,13 +107,13 @@ def upload_image(request):
         if form.is_valid():
             image = form.cleaned_data["image"]
             uploader = ImageUploader(image)
-            detected_classes_pt = uploader.process_image()
-            print("Detected objects:", detected_classes_pt)  # Debugging
+            detected_classes_pt, description = uploader.process_image()
             context = {
                 "form": form,
                 "uploaded_image_url": settings.MEDIA_URL + image.name,
                 "output_image_url": settings.MEDIA_URL + "output_" + image.name,
                 "detected_classes": detected_classes_pt,
+                "description": description,
             }
             return render(request, "home/home.html", context)
     else:
