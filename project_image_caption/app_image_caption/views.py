@@ -3,6 +3,7 @@ import os
 from django.conf import settings
 from django.shortcuts import render
 from googletrans import Translator
+from gtts import gTTS
 from PIL import Image
 from transformers import BlipForConditionalGeneration, BlipProcessor
 from ultralytics import YOLO
@@ -56,7 +57,13 @@ class ImageUploader:
         self._save_image()
         caption = self.captioner.generate_caption(self.image_path)
         translated_caption = self.captioner.translate_caption(caption)
+        self._generate_audio(translated_caption)
         return translated_caption
+
+    def _generate_audio(self, text):
+        tts = gTTS(text=text, lang="pt")
+        audio_path = os.path.join(settings.MEDIA_ROOT, "description.mp3")
+        tts.save(audio_path)
 
 
 def upload_image(request):
@@ -70,6 +77,7 @@ def upload_image(request):
                 "form": form,
                 "uploaded_image_url": settings.MEDIA_URL + image.name,
                 "description": caption,
+                "audio_url": settings.MEDIA_URL + "description.mp3",
             }
             return render(request, "home/home.html", context)
     else:

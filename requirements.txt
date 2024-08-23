@@ -18,6 +18,7 @@ google-auth==2.34.0
 google-auth-oauthlib==1.0.0
 googletrans==4.0.0rc1
 grpcio==1.65.5
+gTTS==2.5.3
 h11==0.9.0
 h2==3.2.0
 hpack==3.0.0
