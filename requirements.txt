@@ -27,7 +27,7 @@ httpcore==0.9.1
 httpx==0.13.3
 huggingface-hub==0.24.6
 hyperframe==5.2.0
-idna==2.10
+idna==3.7
 importlib_metadata==8.4.0
 importlib_resources==6.4.4
 ipython==8.12.3
