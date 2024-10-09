@@ -40,7 +40,6 @@ Para o desenvolvimento da aplicação, serão utilizadas as seguintes tecnologia
 
 - Implementação da funcionalidade de captura e processamento de imagens.
 - Desenvolvimento dos algoritmos de visão computacional e processamento de linguagem natural.
-- Integração dos componentes e realização de testes unitários.
 
 ### Fase 3: Testes e Ajustes
 
@@ -52,7 +51,3 @@ Para o desenvolvimento da aplicação, serão utilizadas as seguintes tecnologia
 
 - Lançamento da aplicação.
 - Apresentação do projeto.
-
-## TRABALHO EM DESENVOLVIMENTO
-
-Todas as contribuições são bem-vindas para o projeto.
