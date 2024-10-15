@@ -6,7 +6,6 @@ from googletrans import Translator
 from gtts import gTTS
 from PIL import Image
 from transformers import BlipForConditionalGeneration, BlipProcessor
-from ultralytics import YOLO
 
 from .forms import UploadImageForm
 
@@ -39,7 +38,6 @@ class ImageUploader:
         self.output_image_path = os.path.join(
             settings.MEDIA_ROOT, "output_" + image.name
         )
-        self.model = YOLO("yolov8n.pt")
         self.captioner = ImageCaptioner()
 
         if not os.path.exists(settings.MEDIA_ROOT):
